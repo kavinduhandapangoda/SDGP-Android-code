@@ -20,13 +20,14 @@ class TestApp extends StatelessWidget {
 
 Widget textLayoutWidget() {
   return Padding(
-    padding: EdgeInsets.all(25.0),
-    child: TextButton(
-      style:ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 72, 187, 76)),
-        foregroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 0, 0, 0)),
-      ),
-      onPressed: (){},
-      child: const Text("Start scan"))
-  );
+      padding: EdgeInsets.all(25.0),
+      child: TextButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+                Color.fromARGB(255, 72, 187, 76)),
+            foregroundColor:
+                MaterialStateProperty.all<Color>(Color.fromARGB(255, 0, 0, 0)),
+          ),
+          onPressed: () {},
+          child: const Text("Start scan")));
 }
