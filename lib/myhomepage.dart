@@ -20,6 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     setState(() {
       imageFile = File(pickedFile!.path);
+      popupmodel(context!,imageFile);
     });
   }
 
@@ -31,24 +32,13 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(
             height: 50,
           ),
-          imageFile != null
-              ? Container(
-                  child: Image.file(imageFile!),
-                )
-              : Container(
-                  child: Icon(
-                    Icons.camera_enhance_rounded,
-                    color: Colors.green,
-                    size: MediaQuery.of(context).size.width * .6,
-                  ),
-                ),
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: ElevatedButton(
                 child: Text('Capture Image with Camera'),
                 onPressed: () {
                   _getFromCamera();
-                  popupmodel(context);
+
                 },
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.purple),
@@ -61,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void popupmodel(context) {
+  void popupmodel(context,File) {
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
@@ -72,11 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(15))
             ),
-              height: MediaQuery.of(context).size.height * .20,
-              child: const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Text("editor"),
-              ));
+              height: MediaQuery.of(context).size.height * .40,
+              child: Padding(
+                padding: EdgeInsets.all(25.0),
+                  child: Image.file(File),
+              ),
+
+          );
         });
   }
 }
