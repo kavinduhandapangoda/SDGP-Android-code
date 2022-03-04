@@ -1,4 +1,4 @@
-import 'package:sdgp_application_v1/myhomepage.dart';
+import 'package:sdgp_application_v1/myHomePage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,9 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
-
-  
 }
