@@ -17,7 +17,7 @@ class TensorFlowApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Coconut Disease Detection',
+      title: 'Coconut Disease Detection ',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
