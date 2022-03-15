@@ -1,4 +1,4 @@
-import 'package:sdgp_application_v1/myHomePage.dart';
+import 'package:sdgp_application_v1/quickScanPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Coconut Disease Detection',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: const MyHomePage(),
+      home: const QuickScanPage(),
     );
   }
 }
