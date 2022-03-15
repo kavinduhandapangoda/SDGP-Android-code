@@ -15,7 +15,6 @@ class QuickScanPage extends StatefulWidget {
 }
 
 class _QuickScanPageState extends State<QuickScanPage> {
-  File? image;
   File? imageFile;
   String result = '';
   ImagePicker? imagePicker;
