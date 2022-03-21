@@ -39,7 +39,7 @@ class _QuickScanPageState extends State<QuickScanPage> {
 
   loadDataModelFiles() async {
     String? output = await Tflite.loadModel(
-      model: 'assets/model.tflite',
+      model: 'assets/model_unquant.tflite',
       labels: 'assets/labels.txt',
     );
     print(output);
@@ -47,14 +47,9 @@ class _QuickScanPageState extends State<QuickScanPage> {
 
   Future imageClassification(File image) async {
     int startTime = DateTime.now().millisecondsSinceEpoch;
-    var imageBytes = (image.readAsBytesSync().buffer.asByteData()).buffer;
-    img.Image? oriImage = img.decodeJpg(imageBytes.asUint8List());
-    img.Image resizedImage = img.copyResize(oriImage!, height: 112, width: 112);
-    var recognitions = await Tflite.runModelOnBinary(
-        binary: imageToByteListFloat32(resizedImage, 112, 127.5, 127.5), // required
-        numResults: 2, // defaults to 5
-        threshold: 0.05, // defaults to 0.1
-        asynch: true // defaults to true
+    var recognitions = await Tflite.runModelOnImage(
+      path: image.path,
+      numResults: 2,
     );
     print(recognitions!.length.toString());
     setState(() {
@@ -63,7 +58,7 @@ class _QuickScanPageState extends State<QuickScanPage> {
     recognitions.forEach((element) {
       setState(() {
         print(element.toString());
-        result += element['label'] + '\n\n';
+        result += element['label'] + '   ' + (element['confidence'] as double).toStringAsFixed(2) + '\n';
       });
     });
     int endTime = DateTime.now().millisecondsSinceEpoch;
@@ -90,6 +85,7 @@ class _QuickScanPageState extends State<QuickScanPage> {
     super.initState();
     imagePicker = ImagePicker();
     loadDataModelFiles();
+    _getLocation();
   }
 
   Future<void> _getLocation() async {
@@ -184,7 +180,7 @@ class _QuickScanPageState extends State<QuickScanPage> {
                     ),
                   ),
                   Text(
-                    'Result:  ' + result,
+                    result,
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 15.0,

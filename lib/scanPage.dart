@@ -39,7 +39,7 @@ class _ScanPageState extends State<ScanPage> {
 
   loadModel() async {
     await Tflite.loadModel(
-      model: 'assets/model.tflite',
+      model: 'assets/model_unquant.tflite',
       labels: 'assets/labels.txt',
     );
   }
@@ -81,10 +81,7 @@ class _ScanPageState extends State<ScanPage> {
       result = '';
 
       for (var response in recognition!) {
-        result += response['label'] +
-            '   ' +
-            (response['confidence'] as double).toStringAsFixed(2) +
-            '\n\n';
+        result += response['label'] + '   ' + (response['confidence'] as double).toStringAsFixed(2) + '\n';
       }
 
       setState(() {
