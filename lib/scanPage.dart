@@ -72,12 +72,11 @@ class _ScanPageState extends State<ScanPage> {
         imageWidth: cameraImage!.width,
         imageMean: 127.5,
         imageStd: 127.5,
-        rotation: 90,
+        rotation: 0,
         numResults: 2,
         threshold: 0.1,
         asynch: true,
       );
-
       result = '';
 
       for (var response in recognition!) {
@@ -109,9 +108,9 @@ class _ScanPageState extends State<ScanPage> {
                   initCamera();
                 },
                 child: Container(
-                  margin: const EdgeInsets.only(top: 65.0),
-                  height: 270,
-                  width: 360,
+                  margin: const EdgeInsets.only(top: 25.0),
+                  height: 405,
+                  width: 390,
                   child: cameraImage == null
                       ? const SizedBox(
                     height: 270,
@@ -131,7 +130,7 @@ class _ScanPageState extends State<ScanPage> {
             ),
             Center(
               child: Container(
-                margin: const EdgeInsets.only(top: 55.0),
+                margin: const EdgeInsets.only(top: 20.0),
                 child: SingleChildScrollView(
                   child: Text(
                     result,
