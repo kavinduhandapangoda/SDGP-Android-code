@@ -40,13 +40,13 @@ class _ScanPageState extends State<ScanPage> {
       } else {
         setState(() {
           cameraController!.startImageStream((imageFromStream) => {
-            if (!isWorking)
-              {
-                isWorking = true,
-                cameraImage = imageFromStream,
-                runModelOnStreamFrames(),
-              }
-          });
+                if (!isWorking)
+                  {
+                    isWorking = true,
+                    cameraImage = imageFromStream,
+                    runModelOnStreamFrames(),
+                  }
+              });
         });
       }
     });
@@ -96,7 +96,10 @@ class _ScanPageState extends State<ScanPage> {
       result = '';
 
       for (var response in recognition!) {
-        result += response['label'] + '   ' + (response['confidence'] as double).toStringAsFixed(2) + '\n';
+        result += response['label'] +
+            '   ' +
+            (response['confidence'] as double).toStringAsFixed(2) +
+            '\n';
         label = response['label'];
         confidence = response['confidence'] as double;
       }
@@ -114,9 +117,7 @@ class _ScanPageState extends State<ScanPage> {
   }
 
   Future<void> captureImage() async {
-
     if (timerOn == false) {
-
       setState(() {
         timerOn = true;
         isWorking = false;
@@ -127,7 +128,6 @@ class _ScanPageState extends State<ScanPage> {
       // await cameraController?.lockCaptureOrientation();
 
       if (cameraController != null) {
-
         try {
           await takeScreenshot();
           // setState(() {
@@ -139,7 +139,7 @@ class _ScanPageState extends State<ScanPage> {
         }
       }
 
-      Timer(const Duration(seconds: 5), (){
+      Timer(const Duration(seconds: 5), () {
         setState(() {
           timerOn = false;
         });
@@ -207,27 +207,27 @@ class _ScanPageState extends State<ScanPage> {
                 onPressed: () {
                   setCameraController();
                 },
-                child: Container(
-                  margin: const EdgeInsets.only(top: 25.0),
-                  height: 405,
-                  width: 390,
-                  child: cameraImage == null
-                      ? const SizedBox(
-                    height: 270,
-                    width: 360,
-                    child: Icon(
-                      Icons.photo_camera_front,
-                      color: Colors.pink,
-                      size: 60.0,
-                    ),
-                  )
-                      : Screenshot(
-                          controller: screenshotController,
-                          child: AspectRatio(
+                child: Screenshot(
+                  controller: screenshotController,
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 25.0),
+                    height: 405,
+                    width: 390,
+                    child: cameraImage == null
+                        ? const SizedBox(
+                            height: 270,
+                            width: 360,
+                            child: Icon(
+                              Icons.photo_camera_front,
+                              color: Colors.pink,
+                              size: 60.0,
+                            ),
+                          )
+                        : AspectRatio(
                             aspectRatio: cameraController!.value.aspectRatio,
                             child: CameraPreview(cameraController!),
                           ),
-                      ),
+                  ),
                 ),
               ),
             ),
