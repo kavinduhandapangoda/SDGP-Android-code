@@ -1,6 +1,12 @@
+import 'dart:io';
+import 'dart:async';
+import 'dart:typed_data';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:tflite/tflite.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'main3.dart';
 
@@ -16,9 +22,18 @@ class _ScanPageState extends State<ScanPage> {
   String result = '';
   CameraController? cameraController;
   CameraImage? cameraImage;
+  String label = '';
+  double confidence = 0;
+  bool timerOn = false;
+  final screenshotController = ScreenshotController();
+  Uint8List? imageInUnit8List;
+
+  setCameraController() {
+    cameraController = CameraController(cameras![0], ResolutionPreset.medium);
+    initCamera();
+  }
 
   initCamera() {
-    cameraController = CameraController(cameras![0], ResolutionPreset.medium);
     cameraController!.initialize().then((value) {
       if (!mounted) {
         return;
@@ -49,8 +64,9 @@ class _ScanPageState extends State<ScanPage> {
     // TODO: implement initState
     super.initState();
 
-    initCamera();
+    setCameraController();
     loadModel();
+    // loadImage();
   }
 
   @override
@@ -73,7 +89,7 @@ class _ScanPageState extends State<ScanPage> {
         imageMean: 127.5,
         imageStd: 127.5,
         rotation: 90,
-        numResults: 2,
+        numResults: 1,
         threshold: 0.1,
         asynch: true,
       );
@@ -82,15 +98,99 @@ class _ScanPageState extends State<ScanPage> {
 
       for (var response in recognition!) {
         result += response['label'] + '   ' + (response['confidence'] as double).toStringAsFixed(2) + '\n';
+        label = response['label'];
+        confidence = response['confidence'] as double;
       }
 
       setState(() {
         result;
       });
 
+      if (label != 'Fresh' && confidence > 0.80) {
+        captureImage();
+      }
+
       isWorking = false;
     }
   }
+
+  Future<void> captureImage() async {
+
+    if (timerOn == false) {
+
+      setState(() {
+        timerOn = true;
+        isWorking = false;
+      });
+
+      // await cameraController?.stopImageStream();
+      // await initCamera();
+      // await cameraController?.lockCaptureOrientation();
+
+      if (cameraController != null) {
+
+        try {
+          await takeScreenshot();
+          // setState(() {
+          //   capturedImage = takePicture();
+          // });
+        } catch (e) {
+          print(e);
+          print("Error");
+        }
+      }
+
+      Timer(const Duration(seconds: 5), (){
+        setState(() {
+          timerOn = false;
+        });
+      });
+    }
+  }
+
+  // Future loadImage() async {
+  //   final appDir = await getApplicationDocumentsDirectory();
+  //   File file = File('${appDir.path}/image.png');
+  //
+  //   if (file.existsSync()) {
+  //     final imageInUnit8List = await file.readAsBytes();
+  //
+  //     setState(() {
+  //       this.imageInUnit8List = imageInUnit8List;
+  //     });
+  //   }
+  // }
+
+  Future<void> takeScreenshot() async {
+    Uint8List? imageInUnit8List = await screenshotController.capture();
+
+    if (imageInUnit8List != null) {
+      final appDir = await getApplicationDocumentsDirectory();
+      File file = File('${appDir.path}/image.png');
+      file.writeAsBytes(imageInUnit8List);
+      print('Captured');
+    } else {
+      print('Not Captured');
+    }
+  }
+
+  // Future<XFile?> takePicture() async{
+  //   final CameraController? controller = cameraController;
+  //
+  //   if (controller!.value.isTakingPicture) {
+  //     // A capture is already pending, do nothing.
+  //     return null;
+  //   }
+  //
+  //   try {
+  //     XFile file = await controller.takePicture();
+  //     print("Captured Image");
+  //     return file;
+  //   } on CameraException catch (e) {
+  //     print('Error occured while taking picture: $e');
+  //     return null;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +206,7 @@ class _ScanPageState extends State<ScanPage> {
             Center(
               child: TextButton(
                 onPressed: () {
-                  initCamera();
+                  setCameraController();
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 65.0),
@@ -122,10 +222,13 @@ class _ScanPageState extends State<ScanPage> {
                       size: 60.0,
                     ),
                   )
-                      : AspectRatio(
-                    aspectRatio: cameraController!.value.aspectRatio,
-                    child: CameraPreview(cameraController!),
-                  ),
+                      : Screenshot(
+                          controller: screenshotController,
+                          child: AspectRatio(
+                            aspectRatio: cameraController!.value.aspectRatio,
+                            child: CameraPreview(cameraController!),
+                          ),
+                      ),
                 ),
               ),
             ),
