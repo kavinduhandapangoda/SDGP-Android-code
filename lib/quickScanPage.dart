@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-// import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tflite/tflite.dart';
 import 'package:image/image.dart' as img;
@@ -82,9 +83,9 @@ class _QuickScanPageState extends State<QuickScanPage> {
   final String _fresh = """
     No Diseases Detected...""";
 
-  // var _latitude = "";
-  // var _longitude = "";
-  // var _altitude = "";
+   var _latitude = "";
+   var _longitude = "";
+   var _altitude = "";
 
   void _getFromCamera() async {
     XFile? pickedFile = await imagePicker!.pickImage(
@@ -120,6 +121,7 @@ class _QuickScanPageState extends State<QuickScanPage> {
   }
 
   Future imageClassification(File image) async {
+    var disease = "";
     int startTime = DateTime.now().millisecondsSinceEpoch;
     var recognitions = await Tflite.runModelOnImage(
       path: image.path,
@@ -133,10 +135,15 @@ class _QuickScanPageState extends State<QuickScanPage> {
       setState(() {
         print(element.toString());
         result += element['label'] + ': ' + (element['confidence'] as double).toStringAsFixed(2) + '\n';
+        disease = element['label'];
       });
     });
     int endTime = DateTime.now().millisecondsSinceEpoch;
     print("Inference took ${endTime - startTime}ms");
+    //print("la "+ _latitude+" lo "+ _longitude+" di "+disease);
+    var locationString = _latitude+","+_longitude;
+    print(locationString);
+    addDataRecord(locationString,disease);
   }
 
   Uint8List imageToByteListFloat32(img.Image image, int inputSize, double mean, double std) {
@@ -154,48 +161,52 @@ class _QuickScanPageState extends State<QuickScanPage> {
     return convertedBytes.buffer.asUint8List();
   }
 
+  void addDataRecord(String location, String disease) async {
+    var url = Uri.parse('https://agroscan.loopweb.lk/reportLog/${location}/${disease}');
+    var response = await http.get(url, headers: {});
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+  }
+
   @override
   void initState() {
     super.initState();
     imagePicker = ImagePicker();
     loadDataModelFiles();
-    // _getLocation();
+     _getLocation();
   }
 
-  // Future<void> _getLocation() async {
-  //   Position position = await _determinePosition();
-  //
-  //   setState(() {
-  //     _latitude = position.latitude.toString();
-  //     _longitude = position.longitude.toString();
-  //     _altitude = position.altitude.toString();
-  //   });
-  // }
+   void _getLocation() async {
+     Position position = await _determinePosition();
+       _latitude = position.latitude.toString();
+       _longitude = position.longitude.toString();
+       _altitude = position.altitude.toString();
+   }
 
-  // Future<Position> _determinePosition() async {
-  //   bool serviceEnabled;
-  //   LocationPermission permission;
-  //
-  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  //   if (!serviceEnabled) {
-  //     return Future.error('Location services are disabled.');
-  //   }
-  //
-  //   permission = await Geolocator.checkPermission();
-  //   if (permission == LocationPermission.denied) {
-  //     permission = await Geolocator.requestPermission();
-  //     if (permission == LocationPermission.denied) {
-  //       return Future.error('Location permissions are denied');
-  //     }
-  //   }
-  //
-  //   if (permission == LocationPermission.deniedForever) {
-  //     return Future.error(
-  //         'Location permissions are permanently denied, we cannot request permissions.');
-  //   }
-  //
-  //   return await Geolocator.getCurrentPosition();
-  // }
+   Future<Position> _determinePosition() async {
+     bool serviceEnabled;
+     LocationPermission permission;
+
+     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+     if (!serviceEnabled) {
+       return Future.error('Location services are disabled.');
+     }
+
+     permission = await Geolocator.checkPermission();
+     if (permission == LocationPermission.denied) {
+       permission = await Geolocator.requestPermission();
+       if (permission == LocationPermission.denied) {
+         return Future.error('Location permissions are denied');
+       }
+     }
+
+     if (permission == LocationPermission.deniedForever) {
+       return Future.error(
+           'Location permissions are permanently denied, we cannot request permissions.');
+     }
+
+     return await Geolocator.getCurrentPosition();
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -204,10 +215,7 @@ class _QuickScanPageState extends State<QuickScanPage> {
         child: ElevatedButton(
             child: const Text('Capture Image'),
             onPressed: () {
-              // _getLocation();
-              // if (_latitude != "") {
               _getFromCamera();
-              // }
             },
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.blue),
