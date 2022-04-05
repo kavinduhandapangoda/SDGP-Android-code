@@ -6,6 +6,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:tflite/tflite.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as imglib;
 import 'main3.dart';
@@ -27,6 +28,9 @@ class _ScanPageState extends State<ScanPage> {
   bool timerOn = false;
   final screenshotController = ScreenshotController();
   Uint8List? imageInUnit8List;
+  var _latitude = "";
+  var _longitude = "";
+  var _altitude = "";
 
   setCameraController() {
     cameraController = CameraController(cameras![0], ResolutionPreset.medium);
@@ -64,9 +68,12 @@ class _ScanPageState extends State<ScanPage> {
     // TODO: implement initState
     super.initState();
 
-    setCameraController();
+    _getLocation();
     loadModel();
-    // loadImage();
+    if (_latitude != "") {
+      setCameraController();
+      // loadImage();
+    }
   }
 
   @override
@@ -76,6 +83,38 @@ class _ScanPageState extends State<ScanPage> {
 
     await Tflite.close();
     cameraController?.dispose();
+  }
+
+  void _getLocation() async {
+    Position position = await _determinePosition();
+    _latitude = position.latitude.toString();
+    _longitude = position.longitude.toString();
+    _altitude = position.altitude.toString();
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    return await Geolocator.getCurrentPosition();
   }
 
   runModelOnStreamFrames() async {
@@ -109,6 +148,7 @@ class _ScanPageState extends State<ScanPage> {
       });
 
       if (label != 'Fresh' && confidence > 0.80) {
+        _getLocation();
         captureImage();
       }
 
@@ -130,6 +170,7 @@ class _ScanPageState extends State<ScanPage> {
       if (cameraController != null) {
         try {
           await convertImageToPng(cameraImage!);
+          var locationString = _latitude+","+_longitude;
           // setState(() {
           //   capturedImage = takePicture();
           // });
