@@ -10,6 +10,8 @@ import 'src/di/service_locator.dart';
 import 'src/navigation/navigation_service.dart';
 import 'src/navigation/routes.dart';
 
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/12/page_12.dart';
+
 void main() async {
   await ServiceLocator().setUp();
   runApp(const App());
@@ -36,7 +38,7 @@ class App extends StatelessWidget {
         navigatorKey: GetIt.I.get<NavigationService>().navigatorKey,
         initialRoute: MobileRoutes.root,
         onGenerateRoute: routes,
-        home: RootWidget(),
+        home: Page12(),
       ),
     );
   }
