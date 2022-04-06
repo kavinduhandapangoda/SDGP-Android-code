@@ -1,4 +1,4 @@
-package com.example.sdgp_application_v1
+package com.example.flutter_ui_kit_obkm
 
 import io.flutter.embedding.android.FlutterActivity
 

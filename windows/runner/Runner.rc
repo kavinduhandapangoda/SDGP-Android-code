@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "sdgp_application_v1" "\0"
+            VALUE "FileDescription", "A new Flutter project." "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "sdgp_application_v1" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "sdgp_application_v1.exe" "\0"
-            VALUE "ProductName", "sdgp_application_v1" "\0"
+            VALUE "InternalName", "flutter_ui_kit_obkm" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2021 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "flutter_ui_kit_obkm.exe" "\0"
+            VALUE "ProductName", "flutter_ui_kit_obkm" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
