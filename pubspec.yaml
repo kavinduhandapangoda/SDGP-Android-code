@@ -43,6 +43,16 @@ dependencies:
   flutter_bloc: ^8.0.0
   table_calendar: ^3.0.3
 
+  camera: ^0.9.4+11
+  image_picker: ^0.8.1+3
+  geolocator: ^8.2.0
+  tflite: ^1.1.2
+  image: ^3.1.3
+  screenshot: ^1.2.3
+  path_provider: ^2.0.9
+  ffi: ^1.1.2
+  http: ^0.13.1
+
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +96,8 @@ flutter:
     - assets/svg/12/
     - assets/svg/14/
     - assets/svg/18/
+    - assets/labels.txt
+    - assets/model_unquant.tflite
 
 
 

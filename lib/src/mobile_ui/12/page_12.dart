@@ -7,6 +7,9 @@ import 'package:flutter_ui_kit_obkm/src/navigation/navigation_service.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:flutter_ui_kit_obkm/src/mobile_ui/5/page5.dart';
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/quickScanPage.dart';
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/main3.dart';
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/scanPage.dart';
 
 class Page12 extends StatefulWidget {
   const Page12({Key? key}) : super(key: key);
@@ -114,8 +117,8 @@ class _Page12State extends State<Page12> {
         opacity: 1,
         child: InkWell(
           onTap: (){
-            //Navigator.push(context,
-                //MaterialPageRoute(builder: (context) => const Page5()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ScanPage()));
           },
           child: Container(
             width: 137.w,
@@ -157,8 +160,8 @@ class _Page12State extends State<Page12> {
         opacity: 1,
         child: InkWell(
           onTap: (){
-            //Navigator.push(context,
-               // MaterialPageRoute(builder: (context) => const Page12()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const QuickScanPage()));
           },
           child: Container(
             width: 137.w,

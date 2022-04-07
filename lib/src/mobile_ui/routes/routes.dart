@@ -22,6 +22,7 @@ class MobileRoutes {
   static const pg18 = "/18/";
   static const pg19 = "/19/";
   static const pg20 = "/20/";
+  static const quickScan = "/quickScan/";
 
   /// 21 - 40
 

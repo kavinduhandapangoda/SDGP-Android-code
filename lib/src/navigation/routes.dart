@@ -20,6 +20,7 @@ import 'package:flutter_ui_kit_obkm/src/mobile_ui/7/page7.dart';
 import 'package:flutter_ui_kit_obkm/src/mobile_ui/8/page8.dart';
 import 'package:flutter_ui_kit_obkm/src/mobile_ui/9/page9.dart';
 import 'package:flutter_ui_kit_obkm/src/mobile_ui/routes/routes.dart';
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/quickScanPage.dart';
 
 import 'fade_route.dart';
 
@@ -27,9 +28,16 @@ var routes = (RouteSettings settings) {
   switch (settings.name) {
 
     /// Mobile 1 - 20
+  ///
+  ///
     case MobileRoutes.pg1:
       return FadeRoute(
         page: const Page1(),
+      );
+
+    case MobileRoutes.quickScan:
+      return FadeRoute(
+        page: const QuickScanPage(),
       );
 
     case MobileRoutes.pg2:
