@@ -51,7 +51,7 @@ class _Page5State extends State<Page5> {
                       ),
                     ),
                     Text(
-                      "Therapist",
+                      " Disease Database ",
                       style: GoogleFonts.workSans(
                         textStyle: TextStyle(
                           fontSize: 16.sp,
@@ -65,98 +65,12 @@ class _Page5State extends State<Page5> {
                       child: SizedBox(
                         width: 24.r,
                         height: 24.r,
-                        child: IconButton(
-                          visualDensity: VisualDensity.adaptivePlatformDensity,
-                          padding: EdgeInsets.zero,
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.filter_list,
-                            color: Colors.black,
-                          ),
-                        ),
+
                       ),
                     )
                   ],
                 ),
                 SizedBox(height: 37.h),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(16.r),
-                  child: SizedBox(
-                    width: 343.w,
-                    height: 170.h,
-                    // color: AppColors.grey,
-                    child: Stack(
-                      children: [
-                        PageView.builder(
-                          itemCount: 4,
-                          physics: const BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics()),
-                          onPageChanged: (index) {
-                            setState(() {
-                              currentPage = index;
-                            });
-                          },
-                          itemBuilder: (c, i) {
-                            return Container(
-                              width: 343.w,
-                              height: 170.h,
-                              color: const Color(0xffA8A8A8),
-                            );
-                          },
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(
-                                  4,
-                                  (index) => buildDot(index == currentPage),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 11.h,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 30.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Nearby Therapists",
-                      style: GoogleFonts.workSans(
-                        textStyle: TextStyle(
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "See more",
-                        style: GoogleFonts.workSans(
-                          textStyle: TextStyle(
-                            fontSize: 14.sp,
-                            color: Colors.black,
-                            fontStyle: FontStyle.normal,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(height: 30.h),
                 ListView.separated(
                   shrinkWrap: true,
                   itemCount: 7,
@@ -201,7 +115,7 @@ class _Page5State extends State<Page5> {
                                       children: [
                                         Flexible(
                                           child: Text(
-                                            "Dr. John Doe",
+                                            "Black Beetle",
                                             style: GoogleFonts.workSans(
                                               textStyle: TextStyle(
                                                 fontSize: 16.sp,
@@ -218,7 +132,8 @@ class _Page5State extends State<Page5> {
                                           height: 8.h,
                                         ),
                                         Text(
-                                          "CUHK Medical Centre",
+                                          "Diseases Database is a cross-referenced index of human disease, "
+                                          "medications, symptoms.",
                                           style: GoogleFonts.workSans(
                                             textStyle: TextStyle(
                                               fontSize: 14.sp,
@@ -227,51 +142,13 @@ class _Page5State extends State<Page5> {
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
-                                          maxLines: 1,
+                                          maxLines: 10,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         SizedBox(
                                           height: 8.h,
                                         ),
-                                        Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.star,
-                                              color: Colors.black,
-                                            ),
-                                            Text(
-                                              "4.8",
-                                              style: GoogleFonts.workSans(
-                                                textStyle: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  color: Colors.black,
-                                                  fontStyle: FontStyle.normal,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(
-                                              width: 16.w,
-                                            ),
-                                            Flexible(
-                                              child: Text(
-                                                "(156 reviews)",
-                                                style: GoogleFonts.workSans(
-                                                  textStyle: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    color: Colors.black,
-                                                    fontStyle: FontStyle.normal,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ],
-                                        )
+
                                       ],
                                     ),
                                   ),

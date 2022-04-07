@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_ui_kit_obkm/res/asset_images.dart';
 import 'package:flutter_ui_kit_obkm/src/navigation/navigation_service.dart';
 import 'package:get_it/get_it.dart';
+
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/5/page5.dart';
 
 class Page12 extends StatefulWidget {
   const Page12({Key? key}) : super(key: key);
@@ -45,17 +48,12 @@ class _Page12State extends State<Page12> {
                     runSpacing: 37.h,
 
                     children: [
-                      _livingRoomItem(name: 'Full Scan', iconPath: Assets.PG12_LIGHT),
-
-                      _livingRoomItem(name: 'Quick Scan', iconPath: Assets.PG12_SOFA),
-
-                      _livingRoomItem(name: 'Diseases', iconPath: Assets.PG12_FRIDGE),
-
-                      _livingRoomItem(name: 'Weather',iconPath: Assets.PG12_FAN),
-
-                      _livingRoomItem(name: 'Fridge', iconPath: Assets.PG12_FRIDGE),
-
-                      _livingRoomItem(name: 'Exit',iconPath: Assets.PG12_FAN),
+                      _FullScan(),
+                      _QuickScan(),
+                      _Databse(),
+                      _livingRoomItem(),
+                      _livingRoomItem(),
+                      _exitButton(),
 
                     ],
                   )
@@ -68,63 +66,217 @@ class _Page12State extends State<Page12> {
     );
   }
 
-  Widget _livingRoomItem(
-          {required String name,
-          required String iconPath,
-          bool available = true,
-          bool warning = false}) =>
+  Widget _livingRoomItem() =>
       Opacity(
-        opacity: available ? 1 : 0.2,
-        child: Container(
-          width: 137.w,
-          height: 160.h,
-          padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 13.h),
-          decoration: BoxDecoration(
-              color: const Color(0xFFEAEAEA),
-              borderRadius: BorderRadius.circular(4.r),
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(0, 1),
-                  blurRadius: 4,
-                  color: Colors.black.withOpacity(.25),
-                )
-              ]),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-              ),
-              SvgPicture.asset(iconPath),
-              const Expanded(child: SizedBox()),
-              Text(
-                name,
-                style: TextStyle(
-                  color: const Color(0xFF208216),
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
+        opacity: 1,
+        child: InkWell(
+          onTap: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Page5()));
+          },
+          child: Container(
+            width: 137.w,
+            height: 160.h,
+            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 33.h),
+            decoration: BoxDecoration(
+                color: const Color(0xFFEAEAEA),
+                borderRadius: BorderRadius.circular(4.r),
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(0, 1),
+                    blurRadius: 4,
+                    color: Colors.black.withOpacity(.25),
+                  )
+                ]),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
                 ),
-              ),
-            ],
+                SvgPicture.asset(Assets.PG12_LIGHT),
+                const Expanded(child: SizedBox()),
+                Text(
+                  'Full Scan',
+                  style: TextStyle(
+                    color: const Color(0xFF208216),
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );
 
-  Widget _titleWidget(String title) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 16.sp,
-              color: Colors.black,
+  Widget _FullScan() =>
+      Opacity(
+        opacity: 1,
+        child: InkWell(
+          onTap: (){
+            //Navigator.push(context,
+                //MaterialPageRoute(builder: (context) => const Page5()));
+          },
+          child: Container(
+            width: 137.w,
+            height: 160.h,
+            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 33.h),
+            decoration: BoxDecoration(
+                color: const Color(0xFFEAEAEA),
+                borderRadius: BorderRadius.circular(4.r),
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(0, 1),
+                    blurRadius: 4,
+                    color: Colors.black.withOpacity(.25),
+                  )
+                ]),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                ),
+                SvgPicture.asset(Assets.PG12_LIGHT),
+                const Expanded(child: SizedBox()),
+                Text(
+                  'Full Scan',
+                  style: TextStyle(
+                    color: const Color(0xFF208216),
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
           ),
-          GestureDetector(
-              onTap: () {
-                GetIt.I.get<NavigationService>().back();
-              },
-              child: const Icon(Icons.add_circle, color: Colors.black)),
-        ],
+        ),
+      );
+
+  Widget _QuickScan() =>
+      Opacity(
+        opacity: 1,
+        child: InkWell(
+          onTap: (){
+            //Navigator.push(context,
+               // MaterialPageRoute(builder: (context) => const Page12()));
+          },
+          child: Container(
+            width: 137.w,
+            height: 160.h,
+            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 33.h),
+            decoration: BoxDecoration(
+                color: const Color(0xFFEAEAEA),
+                borderRadius: BorderRadius.circular(4.r),
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(0, 1),
+                    blurRadius: 4,
+                    color: Colors.black.withOpacity(.25),
+                  )
+                ]),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                ),
+                SvgPicture.asset(Assets.PG12_LIGHT),
+                const Expanded(child: SizedBox()),
+                Text(
+                  'Quick Scan',
+                  style: TextStyle(
+                    color: const Color(0xFF208216),
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+  Widget _Databse() =>
+      Opacity(
+        opacity: 1,
+        child: InkWell(
+          onTap: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Page5()));
+          },
+          child: Container(
+            width: 137.w,
+            height: 160.h,
+            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 33.h),
+            decoration: BoxDecoration(
+                color: const Color(0xFFEAEAEA),
+                borderRadius: BorderRadius.circular(4.r),
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(0, 1),
+                    blurRadius: 4,
+                    color: Colors.black.withOpacity(.25),
+                  )
+                ]),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                ),
+                SvgPicture.asset(Assets.PG12_LIGHT),
+                const Expanded(child: SizedBox()),
+                Text(
+                  'Disease Data',
+                  style: TextStyle(
+                    color: const Color(0xFF208216),
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+  Widget _exitButton() =>
+      Opacity(
+        opacity: 1,
+        child: InkWell(
+          onTap: (){
+            SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+          },
+          child: Container(
+            width: 137.w,
+            height: 160.h,
+            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 33.h),
+            decoration: BoxDecoration(
+                color: const Color(0xFFC41F1F),
+                borderRadius: BorderRadius.circular(4.r),
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(0, 1),
+                    blurRadius: 4,
+                    color: Colors.black.withOpacity(.25),
+                  )
+                ]),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                ),
+                SvgPicture.asset(Assets.PG12_LIGHT),
+                const Expanded(child: SizedBox()),
+                Text(
+                  'Exit',
+                  style: TextStyle(
+                    color: const Color(0xFFFFFFFF),
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       );
 }
