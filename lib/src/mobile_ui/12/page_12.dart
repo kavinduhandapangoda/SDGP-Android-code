@@ -11,6 +11,12 @@ import 'package:flutter_ui_kit_obkm/src/mobile_ui/quickScanPage.dart';
 import 'package:flutter_ui_kit_obkm/src/mobile_ui/main3.dart';
 import 'package:flutter_ui_kit_obkm/src/mobile_ui/scanPage.dart';
 
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/WeatherPage.dart';
+
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/weatherScreen.dart';
+
+import '../WeatherPage.dart';
+
 class Page12 extends StatefulWidget {
   const Page12({Key? key}) : super(key: key);
 
@@ -54,8 +60,8 @@ class _Page12State extends State<Page12> {
                       _FullScan(),
                       _QuickScan(),
                       _Databse(),
-                      _livingRoomItem(),
-                      _livingRoomItem(),
+                      WeatherPage(),
+                      WeatherPage(),
                       _exitButton(),
 
                     ],
@@ -69,13 +75,13 @@ class _Page12State extends State<Page12> {
     );
   }
 
-  Widget _livingRoomItem() =>
+  Widget WeatherPage() =>
       Opacity(
         opacity: 1,
         child: InkWell(
           onTap: (){
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Page5()));
+                MaterialPageRoute(builder: (context) => const weatherScreen()));
           },
           child: Container(
             width: 137.w,

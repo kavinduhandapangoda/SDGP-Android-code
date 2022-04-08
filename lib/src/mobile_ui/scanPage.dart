@@ -238,11 +238,6 @@ class _ScanPageState extends State<ScanPage> {
       child: Screenshot(
         controller: screenshotController,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Coconut Disease Detection'),
-          backgroundColor: Colors.redAccent,
-          centerTitle: true,
-        ),
         body: Column(
           children: [
             Center(
@@ -252,7 +247,7 @@ class _ScanPageState extends State<ScanPage> {
                 },
                   child: Container(
                     margin: const EdgeInsets.only(top: 25.0),
-                    height: 405,
+                    height: MediaQuery.of(context).size.height*0.75,
                     width: 390,
                     child: cameraImage == null
                         ? const SizedBox(

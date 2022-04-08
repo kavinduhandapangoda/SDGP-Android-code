@@ -1,12 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tflite/tflite.dart';
 import 'package:image/image.dart' as img;
+
+import '../navigation/navigation_service.dart';
 
 class QuickScanPage extends StatefulWidget {
   const QuickScanPage({Key? key}) : super(key: key);
@@ -211,17 +216,71 @@ class _QuickScanPageState extends State<QuickScanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-            child: const Text(' Open Camera '),
-            onPressed: () {
-              _getFromCamera();
-            },
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blue),
-                padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-                textStyle:
-                MaterialStateProperty.all(const TextStyle(fontSize: 20)))),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
+          child: Padding(
+            padding: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 8.h),
+            child: Column(
+              children: [
+                SizedBox(height: 37.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 24.r,
+                      height: 24.r,
+                      child: IconButton(
+                        visualDensity: VisualDensity.adaptivePlatformDensity,
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          GetIt.I.get<NavigationService>().back();
+                        },
+                        icon: const Icon(
+                          Icons.chevron_left,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      " Open Camera ",
+                      style: GoogleFonts.workSans(
+                        textStyle: TextStyle(
+                          fontSize: 16.sp,
+                          color: Colors.black,
+                          fontStyle: FontStyle.normal,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: SizedBox(
+                        width: 24.r,
+                        height: 24.r,
+
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height*0.35),
+                Center(
+                  child: ElevatedButton(
+                      child: const Text(' Open Camera '),
+                      onPressed: () {
+                        _getFromCamera();
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.blue),
+                          padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
+                          textStyle:
+                          MaterialStateProperty.all(const TextStyle(fontSize: 20)))),
+                ),
+                SizedBox(height: 8.h),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
