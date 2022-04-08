@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.14)
-project(sdgp_application_v1 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.15)
+project(flutter_ui_kit_obkm LANGUAGES CXX)
 
-set(BINARY_NAME "sdgp_application_v1")
+set(BINARY_NAME "flutter_ui_kit_obkm")
 
 cmake_policy(SET CMP0063 NEW)
 
