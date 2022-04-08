@@ -271,7 +271,7 @@ class _QuickScanPageState extends State<QuickScanPage> {
                         _getFromCamera();
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.blue),
+                          backgroundColor: MaterialStateProperty.all(Colors.green),
                           padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
                           textStyle:
                           MaterialStateProperty.all(const TextStyle(fontSize: 20)))),
