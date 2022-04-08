@@ -61,7 +61,6 @@ class _Page12State extends State<Page12> {
                       _QuickScan(),
                       _Databse(),
                       WeatherPage(),
-                      WeatherPage(),
                       _exitButton(),
 
                     ],
@@ -105,7 +104,7 @@ class _Page12State extends State<Page12> {
                 SvgPicture.asset(Assets.PG12_LIGHT),
                 const Expanded(child: SizedBox()),
                 Text(
-                  'Full Scan',
+                  ' Weather ',
                   style: TextStyle(
                     color: const Color(0xFF208216),
                     fontSize: 18.sp,
@@ -127,7 +126,7 @@ class _Page12State extends State<Page12> {
                 MaterialPageRoute(builder: (context) => const ScanPage()));
           },
           child: Container(
-            width: 137.w,
+            width:MediaQuery.of(context).size.width*0.78,
             height: 160.h,
             padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 33.h),
             decoration: BoxDecoration(

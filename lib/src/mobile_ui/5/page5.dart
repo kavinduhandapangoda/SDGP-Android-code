@@ -104,7 +104,7 @@ class _Page5State extends State<Page5> {
                                     padding: EdgeInsets.only(
                                       left: 15.w,
                                       right: 2.w,
-                                      top: 10.h,
+                                      top: 7.h,
                                       bottom: 10.h,
                                     ),
                                     child: Column(
