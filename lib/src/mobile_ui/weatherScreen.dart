@@ -9,7 +9,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:geolocator/geolocator.dart';
-
 import 'package:http/http.dart' as http;
 
 class weatherScreen extends StatefulWidget {

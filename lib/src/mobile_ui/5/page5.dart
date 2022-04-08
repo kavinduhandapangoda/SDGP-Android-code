@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ui_kit_obkm/src/navigation/navigation_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class Page5 extends StatefulWidget {
   const Page5({Key? key}) : super(key: key);
@@ -14,10 +16,18 @@ class Page5 extends StatefulWidget {
 
 class _Page5State extends State<Page5> {
   int currentPage = 0;
+  var results_data;
+
+  Future<dynamic> _getdata() async{
+    http.Response response = await http.get(Uri.parse("https://agroscan.loopweb.lk/Diseasedata"));
+    var results = await jsonDecode(response.body);
+    return results;
+  }
 
   @override
   void initState() {
     super.initState();
+    _getdata();
   }
 
   @override
@@ -71,99 +81,111 @@ class _Page5State extends State<Page5> {
                   ],
                 ),
                 SizedBox(height: 37.h),
-                ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: 7,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (c, i) {
-                    return SizedBox(
-                      height: 125.h,
-                      // padding: EdgeInsets.only(left: 11.w),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Center(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.r),
-                              child: Container(
-                                width: 125.h,
-                                height: 125.h,
-                                // margin: EdgeInsets.only(right: 14.w),
-                                color: const Color(0xffD0D0D0),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 15.w,
-                                      right: 2.w,
-                                      top: 7.h,
-                                      bottom: 10.h,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            "Black Beetle",
-                                            style: GoogleFonts.workSans(
-                                              textStyle: TextStyle(
-                                                fontSize: 16.sp,
-                                                color: Colors.black,
-                                                fontStyle: FontStyle.normal,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 8.h,
-                                        ),
-                                        Text(
-                                          "Diseases Database is a cross-referenced index of human disease, "
-                                          "medications, symptoms.",
-                                          style: GoogleFonts.workSans(
-                                            textStyle: TextStyle(
-                                              fontSize: 14.sp,
-                                              color: Colors.black,
-                                              fontStyle: FontStyle.normal,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          maxLines: 10,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        SizedBox(
-                                          height: 8.h,
-                                        ),
 
-                                      ],
-                                    ),
+            FutureBuilder<dynamic>(
+                future: _getdata(),
+                builder: (context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.hasData) {
+                    return   ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (c, i) {
+                        return SizedBox(
+                          height: 125.h,
+                          // padding: EdgeInsets.only(left: 11.w),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            // crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Center(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  child: Container(
+                                    width: 125.h,
+                                    height: 125.h,
+                                    // margin: EdgeInsets.only(right: 14.w),
+                                    child: Image.network(snapshot.data[i]['image']),
+                                    color: const Color(0xFF83EA5E),
                                   ),
                                 ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                              ),
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 15.w,
+                                          right: 2.w,
+                                          top: 10.h,
+                                          bottom: 10.h,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                snapshot.data[i]['name'],
+                                                style: GoogleFonts.workSans(
+                                                  textStyle: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    color: Colors.black,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 8.h,
+                                            ),
+                                            Text(
+                                              snapshot.data[i]['solution'],
+                                              style: GoogleFonts.workSans(
+                                                textStyle: TextStyle(
+                                                  fontSize: 13.sp,
+                                                  color: Colors.black,
+                                                  fontStyle: FontStyle.normal,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              maxLines: 10,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(
+                                              height: 8.h,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                      separatorBuilder: (c, i) {
+                        return SizedBox(height: 24.h);
+                      },
                     );
-                  },
-                  separatorBuilder: (c, i) {
-                    return SizedBox(height: 24.h);
-                  },
-                ),
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                }
+            ),
+
+
+
                 SizedBox(height: 8.h),
               ],
             ),
