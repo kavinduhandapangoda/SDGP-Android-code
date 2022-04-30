@@ -184,9 +184,7 @@ class _diseaseDatabseState extends State<diseaseDatabse> {
                 }
             ),
 
-
-
-                SizedBox(height: 8.h),
+               SizedBox(height: 8.h),
               ],
             ),
           ),
