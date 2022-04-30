@@ -84,19 +84,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/png/
-    - assets/png/8/
-    - assets/png/13/
-    - assets/png/10/
-    - assets/svg/
-    - assets/svg/6/
-    - assets/svg/7/
-    - assets/svg/8/
-    - assets/svg/9/
-    - assets/svg/11/
     - assets/svg/homePage/
-    - assets/svg/14/
-    - assets/svg/18/
     - assets/labels.txt
     - assets/model_unquant.tflite
 

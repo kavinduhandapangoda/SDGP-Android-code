@@ -67,6 +67,7 @@ class _weatherScreenState extends State<weatherScreen> {
 
     http.Response response = await http.get(Uri.parse("https://api.openweathermap.org/data/2.5/weather?lat=${_latitude}&lon=${_longitude}&units=imperial&appid=0fe8f2e9003d6b4c89249a85fbd88f14"));
     var results = await jsonDecode(response.body);
+    print("URL: "+"https://api.openweathermap.org/data/2.5/weather?lat=${_latitude}&lon=${_longitude}&units=imperial&appid=0fe8f2e9003d6b4c89249a85fbd88f14");
     setState(() {
       this.location = results['name'];
       this.temp = results['main']["temp"];
@@ -86,7 +87,6 @@ class _weatherScreenState extends State<weatherScreen> {
     _getLocation();
     super.initState();
     _getWeather();
-    print("humadity: "+humidity.toString());
   }
 
   @override
@@ -105,7 +105,7 @@ class _weatherScreenState extends State<weatherScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 14.r,
+                      width: 34.r,
                       height: 24.r,
                       child: IconButton(
                         visualDensity: VisualDensity.adaptivePlatformDensity,

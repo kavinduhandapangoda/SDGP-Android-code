@@ -92,7 +92,7 @@ class _Page12State extends State<Page12> {
                 Align(
                   alignment: Alignment.topRight,
                 ),
-                SvgPicture.asset(Assets.PG12_LIGHT),
+                SvgPicture.asset(Assets.PG12_weather),
                 const Expanded(child: SizedBox()),
                 Text(
                   ' Weather ',
@@ -135,7 +135,7 @@ class _Page12State extends State<Page12> {
                 Align(
                   alignment: Alignment.topRight,
                 ),
-                SvgPicture.asset(Assets.PG12_LIGHT),
+                SvgPicture.asset(Assets.PG12_scan),
                 const Expanded(child: SizedBox()),
                 Text(
                   'Full Scan',
@@ -178,7 +178,7 @@ class _Page12State extends State<Page12> {
                 Align(
                   alignment: Alignment.topRight,
                 ),
-                SvgPicture.asset(Assets.PG12_LIGHT),
+                SvgPicture.asset(Assets.PG12_quickcan),
                 const Expanded(child: SizedBox()),
                 Text(
                   'Quick Scan',
@@ -221,7 +221,7 @@ class _Page12State extends State<Page12> {
                 Align(
                   alignment: Alignment.topRight,
                 ),
-                SvgPicture.asset(Assets.PG12_LIGHT),
+                SvgPicture.asset(Assets.PG12_database),
                 const Expanded(child: SizedBox()),
                 Text(
                   'Disease Data',
@@ -263,7 +263,7 @@ class _Page12State extends State<Page12> {
                 Align(
                   alignment: Alignment.topRight,
                 ),
-                SvgPicture.asset(Assets.PG12_LIGHT),
+                SvgPicture.asset(Assets.PG12_close),
                 const Expanded(child: SizedBox()),
                 Text(
                   'Exit',
