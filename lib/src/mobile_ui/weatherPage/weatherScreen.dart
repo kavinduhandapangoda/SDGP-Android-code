@@ -86,6 +86,7 @@ class _weatherScreenState extends State<weatherScreen> {
     _getLocation();
     super.initState();
     _getWeather();
+    print("humadity: "+humidity.toString());
   }
 
   @override
@@ -104,7 +105,7 @@ class _weatherScreenState extends State<weatherScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 24.r,
+                      width: 14.r,
                       height: 24.r,
                       child: IconButton(
                         visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -3,19 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_ui_kit_obkm/res/asset_images.dart';
-import 'package:flutter_ui_kit_obkm/src/navigation/navigation_service.dart';
-import 'package:get_it/get_it.dart';
-
-import 'package:flutter_ui_kit_obkm/src/mobile_ui/5/page5.dart';
-import 'package:flutter_ui_kit_obkm/src/mobile_ui/quickScanPage.dart';
-import 'package:flutter_ui_kit_obkm/src/mobile_ui/main3.dart';
-import 'package:flutter_ui_kit_obkm/src/mobile_ui/scanPage.dart';
-
-import 'package:flutter_ui_kit_obkm/src/mobile_ui/WeatherPage.dart';
-
-import 'package:flutter_ui_kit_obkm/src/mobile_ui/weatherScreen.dart';
-
-import '../WeatherPage.dart';
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/Database/diseaseDatabse.dart';
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/quickScan/quickScanPage.dart';
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/fullScan/scanPage.dart';
+import 'package:flutter_ui_kit_obkm/src/mobile_ui/weatherPage/weatherScreen.dart';
 
 class Page12 extends StatefulWidget {
   const Page12({Key? key}) : super(key: key);
@@ -209,7 +200,7 @@ class _Page12State extends State<Page12> {
         child: InkWell(
           onTap: (){
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Page5()));
+                MaterialPageRoute(builder: (context) => const diseaseDatabse()));
           },
           child: Container(
             width: 137.w,

@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import 'scanPage.dart';
+import '../fullScan/scanPage.dart';
 
 List<CameraDescription>? cameras;
 

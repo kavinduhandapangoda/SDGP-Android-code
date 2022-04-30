@@ -7,14 +7,14 @@ import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
-class Page5 extends StatefulWidget {
-  const Page5({Key? key}) : super(key: key);
+class diseaseDatabse extends StatefulWidget {
+  const diseaseDatabse({Key? key}) : super(key: key);
 
   @override
-  _Page5State createState() => _Page5State();
+  _diseaseDatabseState createState() => _diseaseDatabseState();
 }
 
-class _Page5State extends State<Page5> {
+class _diseaseDatabseState extends State<diseaseDatabse> {
   int currentPage = 0;
   var results_data;
 

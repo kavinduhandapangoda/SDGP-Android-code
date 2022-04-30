@@ -11,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tflite/tflite.dart';
 import 'package:image/image.dart' as img;
 
-import '../navigation/navigation_service.dart';
+import '../../navigation/navigation_service.dart';
 
 class QuickScanPage extends StatefulWidget {
   const QuickScanPage({Key? key}) : super(key: key);
