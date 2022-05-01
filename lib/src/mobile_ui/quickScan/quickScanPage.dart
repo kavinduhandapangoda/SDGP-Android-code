@@ -92,7 +92,7 @@ class _QuickScanPageState extends State<QuickScanPage> {
    var _longitude = "";
    var _altitude = "";
 
-  void _getFromCamera() async {
+  void _getFromCamera() async { // to capture image
     XFile? pickedFile = await imagePicker!.pickImage(
       source: ImageSource.camera,
       maxHeight: 1080,
@@ -117,7 +117,8 @@ class _QuickScanPageState extends State<QuickScanPage> {
     });
   }
 
-  loadDataModelFiles() async {
+  // Reference: https://pub.dev/packages/tflite/example
+  loadDataModelFiles() async { // loads the TensorFlow model
     String? output = await Tflite.loadModel(
       model: 'assets/model_unquant.tflite',
       labels: 'assets/labels.txt',
@@ -125,7 +126,8 @@ class _QuickScanPageState extends State<QuickScanPage> {
     print(output);
   }
 
-  Future imageClassification(File image) async {
+  // Reference: https://pub.dev/packages/tflite/example
+  Future imageClassification(File image) async { // classifies the captured image using the TensorFlow model
     var disease = "";
     int startTime = DateTime.now().millisecondsSinceEpoch;
     var recognitions = await Tflite.runModelOnImage(
@@ -151,20 +153,20 @@ class _QuickScanPageState extends State<QuickScanPage> {
     addDataRecord(locationString,disease);
   }
 
-  Uint8List imageToByteListFloat32(img.Image image, int inputSize, double mean, double std) {
-    var convertedBytes = Float32List(1 * inputSize * inputSize * 3);
-    var buffer = Float32List.view(convertedBytes.buffer);
-    int pixelIndex = 0;
-    for (var i = 0; i < inputSize; i++) {
-      for (var j = 0; j < inputSize; j++) {
-        var pixel = image.getPixel(j, i);
-        buffer[pixelIndex++] = (img.getRed(pixel) - mean) / std;
-        buffer[pixelIndex++] = (img.getGreen(pixel) - mean) / std;
-        buffer[pixelIndex++] = (img.getBlue(pixel) - mean) / std;
-      }
-    }
-    return convertedBytes.buffer.asUint8List();
-  }
+  // Uint8List imageToByteListFloat32(img.Image image, int inputSize, double mean, double std) {
+  //   var convertedBytes = Float32List(1 * inputSize * inputSize * 3);
+  //   var buffer = Float32List.view(convertedBytes.buffer);
+  //   int pixelIndex = 0;
+  //   for (var i = 0; i < inputSize; i++) {
+  //     for (var j = 0; j < inputSize; j++) {
+  //       var pixel = image.getPixel(j, i);
+  //       buffer[pixelIndex++] = (img.getRed(pixel) - mean) / std;
+  //       buffer[pixelIndex++] = (img.getGreen(pixel) - mean) / std;
+  //       buffer[pixelIndex++] = (img.getBlue(pixel) - mean) / std;
+  //     }
+  //   }
+  //   return convertedBytes.buffer.asUint8List();
+  // }
 
   void addDataRecord(String location, String disease) async {
     var url = Uri.parse('https://agroscan.loopweb.lk/reportLog/${location}/${disease}');
@@ -181,14 +183,16 @@ class _QuickScanPageState extends State<QuickScanPage> {
      _getLocation();
   }
 
-   void _getLocation() async {
+  // Reference: https://www.youtube.com/watch?v=bpKxAPm1Cig&t=386s
+   void _getLocation() async { // gets latitude, longitude and altitude from the retrieved location information
      Position position = await _determinePosition();
        _latitude = position.latitude.toString();
        _longitude = position.longitude.toString();
        _altitude = position.altitude.toString();
    }
 
-   Future<Position> _determinePosition() async {
+   // Reference: https://pub.dev/packages/geolocator
+   Future<Position> _determinePosition() async { // retrieves current location information
      bool serviceEnabled;
      LocationPermission permission;
 
@@ -285,7 +289,7 @@ class _QuickScanPageState extends State<QuickScanPage> {
     );
   }
 
-  void popupModel(context, file) {
+  void popupModel(context, file) { // displays the condition of the captured image of the tree
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,

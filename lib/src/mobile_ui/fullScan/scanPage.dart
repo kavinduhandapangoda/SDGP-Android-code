@@ -32,12 +32,14 @@ class _ScanPageState extends State<ScanPage> {
   var _longitude = "";
   var _altitude = "";
 
-  setCameraController() {
+  // Reference: https://www.youtube.com/watch?v=R_gTJCBfDu0
+  setCameraController() { // gets available cameras
     cameraController = CameraController(cameras![0], ResolutionPreset.medium);
     initCamera();
   }
 
-  initCamera() {
+  // Reference: https://www.youtube.com/watch?v=R_gTJCBfDu0
+  initCamera() { // initializes the camera, starts image stream and runs the model on the image stream
     cameraController!.initialize().then((value) {
       if (!mounted) {
         return;
@@ -56,7 +58,8 @@ class _ScanPageState extends State<ScanPage> {
     });
   }
 
-  loadModel() async {
+  // Reference: https://pub.dev/packages/tflite/example
+  loadModel() async { // loads the TensorFlow model
     await Tflite.loadModel(
       model: 'assets/model_unquant.tflite',
       labels: 'assets/labels.txt',
@@ -85,14 +88,16 @@ class _ScanPageState extends State<ScanPage> {
     cameraController?.dispose();
   }
 
-  void _getLocation() async {
+  // Reference: https://www.youtube.com/watch?v=bpKxAPm1Cig&t=386s
+  void _getLocation() async { // gets latitude, longitude and altitude from the retrieved location information
     Position position = await _determinePosition();
     _latitude = position.latitude.toString();
     _longitude = position.longitude.toString();
     _altitude = position.altitude.toString();
   }
 
-  Future<Position> _determinePosition() async {
+  // Reference: https://pub.dev/packages/geolocator
+  Future<Position> _determinePosition() async { // retrieves current location information
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -117,7 +122,8 @@ class _ScanPageState extends State<ScanPage> {
     return await Geolocator.getCurrentPosition();
   }
 
-  runModelOnStreamFrames() async {
+  // Reference: https://pub.dev/packages/tflite
+  runModelOnStreamFrames() async { // runs the TensorFlow model on the image stream and captures infected trees
     if (cameraImage != null) {
       var recognition = await Tflite.runModelOnFrame(
         bytesList: cameraImage!.planes.map((plane) {
@@ -147,7 +153,7 @@ class _ScanPageState extends State<ScanPage> {
         result;
       });
 
-      if (label != 'Fresh' && confidence > 0.80) {
+      if (label != 'Fresh' && confidence > 0.80) { // if an infected tree is found
         _getLocation();
         captureImage();
       }
@@ -156,7 +162,7 @@ class _ScanPageState extends State<ScanPage> {
     }
   }
 
-  Future<void> captureImage() async {
+  Future<void> captureImage() async { // captures an image when an infected tree is detected
     if (timerOn == false) {
       setState(() {
         timerOn = true;
@@ -180,7 +186,8 @@ class _ScanPageState extends State<ScanPage> {
         }
       }
 
-      Timer(const Duration(seconds: 5), () {
+      // To avoid capturing multiple images from the same location
+      Timer(const Duration(seconds: 5), () { // Only one image will be captured within 5 seconds
         setState(() {
           timerOn = false;
         });
@@ -201,18 +208,18 @@ class _ScanPageState extends State<ScanPage> {
   //   }
   // }
 
-  Future<void> takeScreenshot() async {
-    Uint8List? imageInUnit8List = await screenshotController.capture();
-
-    if (imageInUnit8List != null) {
-      final appDir = await getApplicationDocumentsDirectory();
-      File file = File('${appDir.path}/image.png');
-      file.writeAsBytes(imageInUnit8List);
-      print('Captured');
-    } else {
-      print('Not Captured');
-    }
-  }
+  // Future<void> takeScreenshot() async {
+  //   Uint8List? imageInUnit8List = await screenshotController.capture();
+  //
+  //   if (imageInUnit8List != null) {
+  //     final appDir = await getApplicationDocumentsDirectory();
+  //     File file = File('${appDir.path}/image.png');
+  //     file.writeAsBytes(imageInUnit8List);
+  //     print('Captured');
+  //   } else {
+  //     print('Not Captured');
+  //   }
+  // }
 
   // Future<XFile?> takePicture() async{
   //   final CameraController? controller = cameraController;
@@ -227,7 +234,7 @@ class _ScanPageState extends State<ScanPage> {
   //     print("Captured Image");
   //     return file;
   //   } on CameraException catch (e) {
-  //     print('Error occured while taking picture: $e');
+  //     print('Error occurred while taking picture: $e');
   //     return null;
   //   }
   // }
@@ -289,6 +296,7 @@ class _ScanPageState extends State<ScanPage> {
     );
   }
 
+  // Reference: https://stackoverflow.com/questions/66911238/can-i-make-stream-with-flutter-camera-package
   Future<Uint8List?> convertImageToPng(CameraImage image) async {
     Uint8List? bytes;
     try {
