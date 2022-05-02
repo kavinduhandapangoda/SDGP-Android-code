@@ -30,7 +30,6 @@ class _ScanPageState extends State<ScanPage> {
   Uint8List? imageInUnit8List;
   var _latitude = "";
   var _longitude = "";
-  var _altitude = "";
 
   // Reference: https://www.youtube.com/watch?v=R_gTJCBfDu0
   setCameraController() { // gets available cameras
@@ -46,13 +45,13 @@ class _ScanPageState extends State<ScanPage> {
       } else {
         setState(() {
           cameraController!.startImageStream((imageFromStream) => {
-                if (!isWorking)
-                  {
-                    isWorking = true,
-                    cameraImage = imageFromStream,
-                    runModelOnStreamFrames(),
-                  }
-              });
+            if (!isWorking)
+              {
+                isWorking = true,
+                cameraImage = imageFromStream,
+                runModelOnStreamFrames(),
+              }
+          });
         });
       }
     });
@@ -93,7 +92,6 @@ class _ScanPageState extends State<ScanPage> {
     Position position = await _determinePosition();
     _latitude = position.latitude.toString();
     _longitude = position.longitude.toString();
-    _altitude = position.altitude.toString();
   }
 
   // Reference: https://pub.dev/packages/geolocator
@@ -244,54 +242,54 @@ class _ScanPageState extends State<ScanPage> {
     return SafeArea(
       child: Screenshot(
         controller: screenshotController,
-      child: Scaffold(
-        body: Column(
-          children: [
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  setCameraController();
-                },
+        child: Scaffold(
+          body: Column(
+            children: [
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    setCameraController();
+                  },
                   child: Container(
                     margin: const EdgeInsets.only(top: 25.0),
                     height: MediaQuery.of(context).size.height*0.75,
                     width: 390,
                     child: cameraImage == null
                         ? const SizedBox(
-                            height: 270,
-                            width: 360,
-                            child: Icon(
-                              Icons.photo_camera_front,
-                              color: Colors.pink,
-                              size: 60.0,
-                            ),
-                          )
+                      height: 270,
+                      width: 360,
+                      child: Icon(
+                        Icons.photo_camera_front,
+                        color: Colors.pink,
+                        size: 60.0,
+                      ),
+                    )
                         : AspectRatio(
-                            aspectRatio: cameraController!.value.aspectRatio,
-                            child: CameraPreview(cameraController!),
-                          ),
-                  ),
-                ),
-              ),
-            Center(
-              child: Container(
-                margin: const EdgeInsets.only(top: 20.0),
-                child: SingleChildScrollView(
-                  child: Text(
-                    result,
-                    style: const TextStyle(
-                      backgroundColor: Colors.black,
-                      fontSize: 25.0,
-                      color: Colors.white,
+                      aspectRatio: cameraController!.value.aspectRatio,
+                      child: CameraPreview(cameraController!),
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
-            )
-          ],
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 20.0),
+                  child: SingleChildScrollView(
+                    child: Text(
+                      result,
+                      style: const TextStyle(
+                        backgroundColor: Colors.black,
+                        fontSize: 25.0,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

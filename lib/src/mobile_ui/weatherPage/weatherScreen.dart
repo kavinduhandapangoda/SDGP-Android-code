@@ -152,7 +152,7 @@ class _weatherScreenState extends State<weatherScreen> {
 
                       Padding(padding: EdgeInsets.only(bottom: 10.0),
                         child: Text(
-                           location != null ? "Currenlty in "+location.toString(): "",
+                          location != null ? "Currenlty in "+location.toString(): "",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.w,
@@ -172,7 +172,7 @@ class _weatherScreenState extends State<weatherScreen> {
 
                       Padding(padding: EdgeInsets.only(top: 10.0),
                         child: Text(
-                            currently != null ? currently.toString()+"  " : "",
+                          currently != null ? currently.toString()+"  " : "",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.w,
@@ -212,24 +212,24 @@ class _weatherScreenState extends State<weatherScreen> {
                       ),
 
                       Padding(padding: EdgeInsets.only(top: 35),
-                       child: Row(
-                        children: [
-                          Padding(padding: EdgeInsets.only(top: 20,left:30 ),
-                            child: FaIcon(FontAwesomeIcons.cloud),
-                          ),
+                        child: Row(
+                          children: [
+                            Padding(padding: EdgeInsets.only(top: 20,left:30 ),
+                              child: FaIcon(FontAwesomeIcons.cloud),
+                            ),
 
-                          Padding(padding: EdgeInsets.only(top: 20,left:40 ),
-                              child: Text("Weather ")
-                          ),
+                            Padding(padding: EdgeInsets.only(top: 20,left:40 ),
+                                child: Text("Weather ")
+                            ),
 
-                          Padding(padding: EdgeInsets.only(top: 20,left:105 ),
-                              child: Text(description != null? description : "Loading",
-                                style: TextStyle(
-                                    fontSize: 18.w
-                                ),)
-                          ),
-                        ],
-                      ),
+                            Padding(padding: EdgeInsets.only(top: 20,left:105 ),
+                                child: Text(description != null? description : "Loading",
+                                  style: TextStyle(
+                                      fontSize: 18.w
+                                  ),)
+                            ),
+                          ],
+                        ),
                       ),
 
                       Padding(padding: EdgeInsets.only(top: 35),

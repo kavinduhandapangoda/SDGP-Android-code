@@ -88,9 +88,9 @@ class _QuickScanPageState extends State<QuickScanPage> {
   final String _fresh = """
     No Diseases Detected...""";
 
-   var _latitude = "";
-   var _longitude = "";
-   var _altitude = "";
+  var _latitude = "";
+  var _longitude = "";
+  var _altitude = "";
 
   void _getFromCamera() async { // to capture image
     XFile? pickedFile = await imagePicker!.pickImage(
@@ -180,42 +180,42 @@ class _QuickScanPageState extends State<QuickScanPage> {
     super.initState();
     imagePicker = ImagePicker();
     loadDataModelFiles();
-     _getLocation();
+    _getLocation();
   }
 
   // Reference: https://www.youtube.com/watch?v=bpKxAPm1Cig&t=386s
-   void _getLocation() async { // gets latitude, longitude and altitude from the retrieved location information
-     Position position = await _determinePosition();
-       _latitude = position.latitude.toString();
-       _longitude = position.longitude.toString();
-       _altitude = position.altitude.toString();
-   }
+  void _getLocation() async { // gets latitude, longitude and altitude from the retrieved location information
+    Position position = await _determinePosition();
+    _latitude = position.latitude.toString();
+    _longitude = position.longitude.toString();
+    _altitude = position.altitude.toString();
+  }
 
-   // Reference: https://pub.dev/packages/geolocator
-   Future<Position> _determinePosition() async { // retrieves current location information
-     bool serviceEnabled;
-     LocationPermission permission;
+  // Reference: https://pub.dev/packages/geolocator
+  Future<Position> _determinePosition() async { // retrieves current location information
+    bool serviceEnabled;
+    LocationPermission permission;
 
-     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-     if (!serviceEnabled) {
-       return Future.error('Location services are disabled.');
-     }
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
 
-     permission = await Geolocator.checkPermission();
-     if (permission == LocationPermission.denied) {
-       permission = await Geolocator.requestPermission();
-       if (permission == LocationPermission.denied) {
-         return Future.error('Location permissions are denied');
-       }
-     }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
 
-     if (permission == LocationPermission.deniedForever) {
-       return Future.error(
-           'Location permissions are permanently denied, we cannot request permissions.');
-     }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
 
-     return await Geolocator.getCurrentPosition();
-   }
+    return await Geolocator.getCurrentPosition();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -300,43 +300,43 @@ class _QuickScanPageState extends State<QuickScanPage> {
                 borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
             height: MediaQuery.of(context).size.height * .95,
             child: Center(
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Result\n',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 30.0,
+                child: Row(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Result\n',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 30.0,
+                          ),
                         ),
-                      ),
-                      Text(
-                        result + '\n',
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontSize: 15.0,
+                        Text(
+                          result + '\n',
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 15.0,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Image.file(
-                          file,
-                          height: 150.0,
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Image.file(
+                            file,
+                            height: 150.0,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    _solution,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 15.0,
+                      ],
                     ),
-                  ),
-                ],
-              )
+                    Text(
+                      _solution,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                  ],
+                )
             ),
           );
         });
