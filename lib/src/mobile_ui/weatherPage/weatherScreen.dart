@@ -67,7 +67,7 @@ class _weatherScreenState extends State<weatherScreen> {
 
     http.Response response = await http.get(Uri.parse("https://api.openweathermap.org/data/2.5/weather?lat=${_latitude}&lon=${_longitude}&units=imperial&appid=0fe8f2e9003d6b4c89249a85fbd88f14"));
     var results = await jsonDecode(response.body);
-    print("URL: "+"https://api.openweathermap.org/data/2.5/weather?lat=${_latitude}&lon=${_longitude}&units=imperial&appid=0fe8f2e9003d6b4c89249a85fbd88f14");
+    print("URL: "+"https://api.openweathermap.org/data/2.5/weather?lat=${_latitude}&lon=${_longitude}&units=imperial&appid=API Key");
     setState(() {
       this.location = results['name'];
       this.temp = results['main']["temp"];
