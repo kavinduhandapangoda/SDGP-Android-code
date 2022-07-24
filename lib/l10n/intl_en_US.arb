@@ -1,0 +1,11 @@
+{
+  "@@locale": "en_US",
+  "title": "Hello",
+  "@title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "contacts": "Contacts",
+  "lastContacted": "Last contacted",
+  "loremIpsum": "Lorem ipsum dolor sit amet, consect"
+}
